@@ -10,7 +10,7 @@ To use the **StockLlama**, follow these steps:
 1. Clone the repository to your local machine.
    
 ```bash
-git clone https://github.com/LegallyCoder/StockLlama
+git clone https://github.com/StockLlama/StockLlama
 ```
 2. Open a terminal or command prompt and navigate to the script's directory.
 ```bash
@@ -116,13 +116,3 @@ Using ZeroGPU support and LoRA training with any stock market. (You can find sto
 [Hugging Face Space](https://huggingface.co/spaces/Q-bert/StockLlama-TrainOnAnyStock)
 
 For LoRA trained models, You can look [StockLlama](https://huggingface.co/StockLlama) organization.
-
-# For more:
-
-You can reach me on,
-
-[Linkedin](https://www.linkedin.com/in/talha-r%C3%BCzgar-akku%C5%9F-1b5457264/)
-
-[Twitter](https://x.com/TalhaRuzga35606)
-
-[Hugging Face](https://huggingface.co/Q-bert)
