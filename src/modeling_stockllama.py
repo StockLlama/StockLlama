@@ -14,18 +14,25 @@ import math
 from typing import Any, Dict, List, Optional, Tuple , Union
 
 class FloatEmbedding(nn.Module):
-    def __init__(self, vocab_size, hidden_size, padding_idx ,term_number):
+    def __init__(self, vocab_size, hidden_size, padding_idx, term_number):
         super(FloatEmbedding, self).__init__()
         self.term_number = term_number
-        self.int_part = nn.Embedding(vocab_size, hidden_size ,padding_idx)
-        self.float_part = nn.Embedding(10**term_number , hidden_size)
-        
-    def forward(self, input):
-        float_input = ((input - torch.floor(input)) * (10**self.term_number)).to(torch.long)
-        int_input = input.to(torch.long)
-        output = self.float_part(float_input) + self.int_part(int_input)
+        self.vocab_size = vocab_size
+        self.padding_idx = padding_idx
+        self.int_part = nn.Embedding(vocab_size, hidden_size, padding_idx=padding_idx)
+        self.float_part = nn.Embedding(10 ** term_number, hidden_size)
 
+    def forward(self, input):
+        float_input = ((input - torch.floor(input)) * (10 ** self.term_number)).to(torch.long)
+        int_input = input.to(torch.long)
+        if (int_input >= self.vocab_size).any():
+            int_input = input.to(torch.float)
+            int_input = (int_input / int_input.max()) * (self.vocab_size - 1)
+            int_input = int_input.to(torch.long)
+
+        output = self.float_part(float_input) + self.int_part(int_input)
         return output
+
     
 class StockLlamaPreTrainedModel(LlamaPreTrainedModel):
     config_class = StockLlamaConfig
